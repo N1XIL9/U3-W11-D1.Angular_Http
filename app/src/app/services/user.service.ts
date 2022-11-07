@@ -8,25 +8,27 @@ import { User } from '../classes/user';
   providedIn: 'root',
 })
 export class UserService {
-  urlAPI = 'https://jsonplaceholder.typicode.com/users/';
+  private urlAPI = 'https://jsonplaceholder.typicode.com/users/';
 
   constructor(private http: HttpClient) {}
 
-  getAllUser(): Observable<User[]> {
+  getAllUser() {
     return this.http.get<User[]>(this.urlAPI);
   }
 
-  getUserById(id: number): Observable<User> {
+  getUserById(id: number) {
     return this.http.get<User>(this.urlAPI + id);
   }
 
-  addUser(user: User): Observable<User> {
+  addUser(user: User) {
     return this.http.post<User>(this.urlAPI, user);
   }
 
-  updateUser(user: User): Observable<User> {
+  updateUser(user: User) {
     return this.http.put<User>(this.urlAPI + user.id, user);
   }
 
-  removeUser(id: number): void {}
+  removeUser(id: number | undefined) {
+    return this.http.delete<User>(this.urlAPI + id);
+  }
 }
